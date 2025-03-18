@@ -6,7 +6,7 @@ const { authenticateUser } = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 
-// ✅ Register User (Admin/User)
+//  Register User (Admin/User)
 router.post("/register", async (req, res) => {
   try {
     const { email, password, role } = req.body;
@@ -30,7 +30,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// ✅ Login User (JWT)
+//  Login User (JWT)
 router.post("/login", async (req, res) => {
     try {
       const { email, password } = req.body;
@@ -53,7 +53,7 @@ router.post("/login", async (req, res) => {
     }
   });
 
-// ✅ Get All Users (Admin Only)
+//  Get All Users (Admin Only)
 router.get("/users", async (req, res) => {
     try {
       // Fetch all users, excluding passwords for security
