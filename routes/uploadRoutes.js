@@ -6,13 +6,13 @@ const { authenticateUser, authorizeAdmin } = require("../middlewares/authMiddlew
 
 const router = express.Router();
 
-// ✅ Ensure Upload Directory Exists
+//  Ensure Upload Directory Exists
 const uploadDir = path.join(__dirname, "../public/uploads");
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// ✅ Multer Storage Configuration
+//  Multer Storage Configuration
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, uploadDir);
@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// ✅ Admin-Only Image Upload
+//  Admin-Only Image Upload
 router.post("/upload", authenticateUser, authorizeAdmin, upload.single("image"), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: "No file uploaded" });
@@ -32,7 +32,7 @@ router.post("/upload", authenticateUser, authorizeAdmin, upload.single("image"),
   res.status(201).json({ message: "Image uploaded successfully", filePath: `/uploads/${req.file.filename}` });
 });
 
-// ✅ Get All Uploaded Images (Visible to Admin & Users)
+//  Get All Uploaded Images (Visible to Admin & Users)
 router.get("/images", (req, res) => {
   fs.readdir(uploadDir, (err, files) => {
     if (err) {
