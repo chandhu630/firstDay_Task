@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-// ✅ Authenticate User
+//  Authenticate User
 exports.authenticateUser = (req, res, next) => {
   const token = req.header("Authorization")?.split(" ")[1];
 
@@ -17,7 +17,7 @@ exports.authenticateUser = (req, res, next) => {
   }
 };
 
-// ✅ Authorize Admin Only
+//  Authorize Admin Only
 exports.authorizeAdmin = (req, res, next) => {
   if (req.user.role !== "admin") {
     return res.status(403).json({ message: "Forbidden: You cannot upload images" });
